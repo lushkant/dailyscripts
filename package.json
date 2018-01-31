@@ -1,0 +1,11 @@
+{
+  "name": "dailyscripts",
+  "version": "1.0.0",
+  "description": "Scripts I use in my day-to-day to life",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Krishna Kant",
+  "license": "MIT"
+}
