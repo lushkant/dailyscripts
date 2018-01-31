@@ -21,8 +21,8 @@ var gulp = require('gulp'),
     newer = require('gulp-newer'),
     sourcemaps = require('gulp-sourcemaps'),
     imagemin = require('gulp-imagemin'),
-    browerSync = require('broswer-sync').create(),
-    reload = browerSync.reload,
+    browserSync = require('browser-sync').create(),
+    reload = browserSync.reload,
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
@@ -31,7 +31,7 @@ var gulp = require('gulp'),
 
 //  Browsersync task
 gulp.task('browser-sync', function() {
-    browerSync.init({
+    browserSync.init({
         proxy: "wp.dev"
     });
 });
@@ -57,7 +57,7 @@ gulp.task('watch', function() {
     gulp.watch('assets/js/**/*.js', ['js']).on("change", browserSync.reload);
 
     // Image Files
-    gulp.watch($imgSrc, ['images']).on("change", browerSync.reload);
+    gulp.watch($imgSrc, ['images']).on("change", browserSync.reload);
 });
 
 // Image minification task
