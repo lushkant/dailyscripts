@@ -1,5 +1,5 @@
 /**
- * @package gulp webdev script
+ * @package Gulp webdev script
  * @version 1.0.0
  * @author Krishna Kant
  * @description Gulp Task Running script for day-to-day
