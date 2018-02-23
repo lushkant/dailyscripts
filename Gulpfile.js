@@ -3,7 +3,7 @@
  * @version 1.0.0
  * @description Gulp Task Running script for day-to-day
  * web development
- * 
+ * @author Krishna Kant Chourasiya
  * Requires following node modules to be installed
  * gulp gulp-sass gulp-autoprefixer gulp-newer
  * gulp-imagemin browser-sync gulp-concat gulp-uglify
@@ -21,8 +21,8 @@ var gulp = require('gulp'),
     newer = require('gulp-newer'),
     sourcemaps = require('gulp-sourcemaps'),
     imagemin = require('gulp-imagemin'),
-    browerSync = require('broswer-sync').create(),
-    reload = browerSync.reload,
+    browserSync = require('browser-sync').create(),
+    reload = browserSync.reload,
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
@@ -32,7 +32,7 @@ var gulp = require('gulp'),
 //  Browsersync task
 gulp.task('browser-sync', function() {
     browerSync.init({
-        proxy: "wp.dev"
+        server: "localhost:3000"
     });
 });
 
@@ -52,17 +52,22 @@ gulp.task('watch', function() {
     // Sass files
     gulp.watch('assets/sass/*.scss', ['sass']).on("change", browserSync.reload);
     gulp.watch('assets/sass/**/*.scss', ['sass']).on("change", browserSync.reload);
+    gulp.watch('assets/sass/**/*.scss', ['sass']).on("change", browserSync.reload);
+
+    // HTML Files
+    gulp.watch('src/*.html', ['html']).on("change", browserSync.reload);
+    gulp.watch('src/**/*.html', ['html']).on("change", browserSync.reload);
 
     // JS Files
     gulp.watch('assets/js/**/*.js', ['js']).on("change", browserSync.reload);
 
     // Image Files
-    gulp.watch($imgSrc, ['images']).on("change", browerSync.reload);
+    gulp.watch($imgSrc, ['images']).on("change", browserSync.reload);
 });
 
 // Image minification task
 gulp.task('images', function() {
-    return gulp.src(imgSrc, {base: 'assets/images/originals'})
+    return gulp.src(imgSrc, {base: 'assets/images/origin'})
     .pipe(newer(imgDest))
     .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
     .pipe(gulp.dest(imgDest));
@@ -76,7 +81,7 @@ gulp.task('js', function() {
     return gulp.src(jsInput.js)
     .pipe(concat('app.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('./assets/js/dist'))
+    .pipe(gulp.dest('assets/js/dist'))
 });
 
 // Final & Default Task
