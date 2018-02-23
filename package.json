@@ -4,8 +4,20 @@
   "description": "Scripts I use in my day-to-day to life",
   "main": "Gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "Gulpfile.js"
   },
   "author": "Krishna Kant",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp" : "latest",
+    "gulp-concat": "latest",
+    "gulp-sass": "latest",
+    "browser-sync" : "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-uglify": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-watch": "latest",
+    "gulp-newer": "latest"
+  }
 }

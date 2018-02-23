@@ -26,13 +26,15 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
-    imgSrc = 'assets/images/originals/*',
+    imgSrc = 'assets/images/origin/*',
     imgDest = 'assets/images/';
 
 //  Browsersync task
 gulp.task('browser-sync', function() {
     browerSync.init({
-        server: "localhost:3000"
+        server: {
+            baseDir: "./src"
+        }
     });
 });
 
@@ -43,7 +45,8 @@ gulp.task('sass', function() {
     .pipe(autoprefixer({ browsers: ['last 2 versions'], cascade: false }))
     .pipe(sass({ outputStyle:'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('./css/'))
+    .pipe(browserSync.stream());
 });
 
 // Browsersync Watch Files task
@@ -55,8 +58,8 @@ gulp.task('watch', function() {
     gulp.watch('assets/sass/**/*.scss', ['sass']).on("change", browserSync.reload);
 
     // HTML Files
-    gulp.watch('src/*.html', ['html']).on("change", browserSync.reload);
-    gulp.watch('src/**/*.html', ['html']).on("change", browserSync.reload);
+    gulp.watch('src/*.html').on("change", browserSync.reload);
+    gulp.watch('src/**/*.html').on("change", browserSync.reload);
 
     // JS Files
     gulp.watch('assets/js/**/*.js', ['js']).on("change", browserSync.reload);
