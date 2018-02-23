@@ -45,7 +45,7 @@ const AUTOPREFIXER_BROWSERS = [
 
 //  Browsersync task
 gulp.task('browser-sync', function () {
-    browerSync.init({
+    browserSync.init({
         server: {
             baseDir: "./src"
         }
@@ -79,7 +79,7 @@ gulp.task('watch', function () {
     gulp.watch('assets/js/**/*.js', ['js']).on("change", browserSync.reload);
 
     // Image Files
-    gulp.watch($imgSrc, ['images']).on("change", browserSync.reload);
+    gulp.watch(imgSrc, ['images']).on("change", browserSync.reload);
 });
 
 // Image minification task
