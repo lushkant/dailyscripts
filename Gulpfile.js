@@ -10,7 +10,7 @@
  * gulp-sourcemaps gulp-watch
  **/
 
- // You probably know what's this if don't ignore (optional) 
+// You probably know what's this if don't ignore (optional) 
 "use strict"
 
 // Importing all the node modules and 
@@ -29,8 +29,22 @@ var gulp = require('gulp'),
     imgSrc = 'assets/images/origin/*',
     imgDest = 'assets/images/';
 
+const AUTOPREFIXER_BROWSERS = [
+    'last 2 version',
+    '> 1%',
+    'ie >= 9',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4',
+    'bb >= 10'
+];
+
 //  Browsersync task
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', function () {
     browerSync.init({
         server: {
             baseDir: "./src"
@@ -39,18 +53,18 @@ gulp.task('browser-sync', function() {
 });
 
 // Sass compiler task
-gulp.task('sass', function() {
+gulp.task('sass', function () {
     return gulp.src('assets/sass/**/*.scss')
-    .pipe(sourcemaps.init())
-    .pipe(autoprefixer({ browsers: ['last 2 versions'], cascade: false }))
-    .pipe(sass({ outputStyle:'compressed'}).on('error', sass.logError))
-    .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest('./css/'))
-    .pipe(browserSync.stream());
+        .pipe(sourcemaps.init())
+        .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest('./css/'))
+        .pipe(browserSync.stream());
 });
 
 // Browsersync Watch Files task
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 
     // Sass files
     gulp.watch('assets/sass/*.scss', ['sass']).on("change", browserSync.reload);
@@ -69,22 +83,22 @@ gulp.task('watch', function() {
 });
 
 // Image minification task
-gulp.task('images', function() {
-    return gulp.src(imgSrc, {base: 'assets/images/origin'})
-    .pipe(newer(imgDest))
-    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
-    .pipe(gulp.dest(imgDest));
+gulp.task('images', function () {
+    return gulp.src(imgSrc, { base: 'assets/images/origin' })
+        .pipe(newer(imgDest))
+        .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+        .pipe(gulp.dest(imgDest));
 });
 
 var jsInput = { js: 'assets/js/dev/**/*.js' }
 var jsOutput = 'assets/js/dist';
 
 // JS minification task
-gulp.task('js', function() {
+gulp.task('js', function () {
     return gulp.src(jsInput.js)
-    .pipe(concat('app.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('assets/js/dist'))
+        .pipe(concat('app.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('assets/js/dist'))
 });
 
 // Final & Default Task
