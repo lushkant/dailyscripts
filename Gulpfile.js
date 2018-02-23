@@ -54,7 +54,7 @@ gulp.task('browser-sync', function () {
 
 // Sass compiler task
 gulp.task('sass', function () {
-    return gulp.src('assets/sass/**/*.scss')
+    return gulp.src('assets/sass/*.scss')
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
         .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
