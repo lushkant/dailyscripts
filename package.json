@@ -9,15 +9,17 @@
   "author": "Krishna Kant",
   "license": "MIT",
   "devDependencies": {
-    "gulp" : "latest",
+    "autoprefixer": "^8.0.0",
+    "browser-sync": "latest",
+    "cssnano": "^3.10.0",
+    "gulp": "latest",
     "gulp-concat": "latest",
-    "gulp-sass": "latest",
-    "browser-sync" : "latest",
-    "gulp-autoprefixer": "latest",
     "gulp-imagemin": "latest",
-    "gulp-uglify": "latest",
+    "gulp-newer": "latest",
+    "gulp-postcss": "^7.0.1",
+    "gulp-sass": "latest",
     "gulp-sourcemaps": "latest",
-    "gulp-watch": "latest",
-    "gulp-newer": "latest"
+    "gulp-uglify": "latest",
+    "gulp-watch": "latest"
   }
 }

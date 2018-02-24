@@ -17,7 +17,7 @@
 // declaring them in variable containers
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
+    autoprefixer = require('autoprefixer'),
     newer = require('gulp-newer'),
     sourcemaps = require('gulp-sourcemaps'),
     imagemin = require('gulp-imagemin'),
@@ -27,21 +27,9 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
     imgSrc = 'assets/images/origin/*',
-    imgDest = 'assets/images/';
-
-const AUTOPREFIXER_BROWSERS = [
-    'last 2 version',
-    '> 1%',
-    'ie >= 9',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4',
-    'bb >= 10'
-];
+    imgDest = 'assets/images/',
+    postcss = require('gulp-postcss'),
+    cssnano = require('cssnano');
 
 //  Browsersync task
 gulp.task('browser-sync', function () {
@@ -54,12 +42,16 @@ gulp.task('browser-sync', function () {
 
 // Sass compiler task
 gulp.task('sass', function () {
+    var processors = [
+        autoprefixer,
+        cssnano
+    ];
     return gulp.src('assets/sass/*.scss')
         .pipe(sourcemaps.init())
-        .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
-        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss(processors))
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest('./css/'))
+        .pipe(gulp.dest('./src/css/'))
         .pipe(browserSync.stream());
 });
 
